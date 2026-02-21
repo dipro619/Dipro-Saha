@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dipro Saha · About</title>
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #0F172A;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+    /* design system */
+    :root {
+      --primary: #2563EB;
+      --secondary: #7C3AED;
+      --bg-dark: #0F172A;
+      --glow-cyan: linear-gradient(145deg, #2563EB80, #7C3AED80);
+      --card-bg: #1E293B;
+    }
+    /* animated background */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 40%, #2563eb15, transparent 40%),
+                  radial-gradient(circle at 80% 70%, #7c3aed15, transparent 40%);
+      z-index: -2;
+      pointer-events: none;
+    }
+    .floating-particles {
+      position: fixed;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="2" fill="%232563EB" opacity="0.2"/><circle cx="40" cy="30" r="3" fill="%237C3AED" opacity="0.2"/><circle cx="50" cy="55" r="2" fill="%232563EB" opacity="0.2"/></svg>');
+      opacity: 0.5;
+      z-index: -1;
+      animation: float 30s linear infinite;
+    }
+    @keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-100px); } }
+
+    /* navbar */
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%; background: #0f172ae0; backdrop-filter: blur(12px);
+      border-bottom: 1px solid #2563eb30; position: sticky; top: 0; z-index: 999;
+    }
+    .logo img {
+      height: 42px; width: auto; border-radius: 8px;
+      cursor: pointer;
+    }
+    .nav-links {
+      display: flex; gap: 2.2rem; align-items: center;
+    }
+    .nav-links a {
+      color: #e2e8f0; text-decoration: none; font-weight: 500;
+      transition: 0.2s;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hamburger.active {
+      transform: rotate(90deg);
+    }
+
+    /* mobile nav */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background: #1E293B;
+      z-index: 1000;
+      padding: 4rem 2rem;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -10px 0 30px #00000080;
+      backdrop-filter: blur(10px);
+      border-left: 1px solid #2563eb30;
+    }
+    .mobile-nav.active {
+      right: 0;
+    }
+    .mobile-nav a {
+      display: block;
+      margin: 2rem 0;
+      color: white;
+      text-decoration: none;
+      font-size: 1.4rem;
+      transition: 0.2s;
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid transparent;
+    }
+    .mobile-nav a.active {
+      border-left-color: var(--primary);
+      color: var(--primary);
+      padding-left: 1.5rem;
+    }
+    .mobile-nav a:hover {
+      color: var(--primary);
+      padding-left: 1.5rem;
+    }
+    .close-nav {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .close-nav:hover {
+      transform: rotate(90deg);
+      color: var(--primary);
+    }
+
+    /* container */
+    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 5%; }
+
+    /* buttons */
+    .btn {
+      display: inline-block; background: var(--primary); color: white; padding: 0.8rem 2rem;
+      border-radius: 40px; text-decoration: none; font-weight: 600; margin-right: 1rem;
+      transition: 0.2s; border: none; cursor: pointer; box-shadow: 0 4px 15px #2563eb50;
+    }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-4px); background: var(--secondary); box-shadow: 0 10px 25px #7c3aed70; }
+
+    /* about specific */
+    .banner {
+      min-height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #2563eb20, #7c3aed20);
+      border-radius: 40px;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner h1 {
+      font-size: 5rem;
+      text-shadow: 0 0 30px cyan;
+      letter-spacing: 4px;
+    }
+    .glow-border {
+      border: 4px solid transparent;
+      border-radius: 30px;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+                  linear-gradient(45deg, var(--primary), var(--secondary)) border-box;
+    }
+
+    /* grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+
+    /* progress bars */
+    .progress-item { margin: 1.8rem 0; }
+    .progress-bar { height: 12px; background: #2d3a4f; border-radius: 20px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 20px; transition: width 1.5s ease; }
+
+    /* timeline */
+    .timeline { max-width: 800px; margin: 3rem auto; }
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      margin: 2.5rem 0;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: 0.6s;
+    }
+    .timeline-item.aos-animate { opacity: 1; transform: translateX(0); }
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 20px cyan;
+      margin-top: 5px;
+    }
+    .timeline-content {
+      background: #1E293B;
+      padding: 1.8rem;
+      border-radius: 24px;
+      flex: 1;
+      border-left: 4px solid var(--primary);
+    }
+
+    /* stat cards */
+    .stat-item {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 24px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    /* floating whatsapp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 20px #25D36650;
+      z-index: 9999;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #20ba5a;
+      box-shadow: 0 15px 30px #25D36680;
+    }
+
+    /* footer */
+    .footer {
+      background: #0F172A;
+      border-top: 1px solid #2563eb30;
+      padding: 3rem 5% 2rem;
+      margin-top: 4rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-col ul li a {
+      color: #b0c4de;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .footer-col ul li a:hover {
+      color: var(--primary);
+      padding-left: 5px;
+    }
+    .social-links-footer {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-links-footer a {
+      color: white;
+      background: #1E293B;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .social-links-footer a:hover {
+      background: var(--primary);
+      transform: translateY(-5px);
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #2563eb20;
+      color: #94a3b8;
+    }
+
+    /* responsive */
+    @media (max-width: 1024px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .banner h1 { font-size: 3rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .whatsapp-float { width: 50px; height: 50px; font-size: 1.8rem; bottom: 20px; right: 20px; }
+    }
+
+    /* loader */
+    .loader { position: fixed; inset: 0; background: #0F172A; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s; }
+    .spinner { width: 60px; height: 60px; border: 5px solid #2563eb30; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s infinite; }
+    @keyframes spin { to{ transform: rotate(360deg); } }
+    #scrollProgress { position: fixed; top:0; left:0; width:0%; height: 4px; background: linear-gradient(90deg, var(--primary), cyan); z-index: 10000; }
+  </style>
+</head>
+<body>
+<div id="scrollProgress"></div>
+<div class="loader" id="loader"><div class="spinner"></div></div>
+<div class="animated-bg"></div>
+<div class="floating-particles"></div>
+
+<!-- FLOATING WHATSAPP ICON -->
+<a href="https://wa.me/8801821646983" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- NAVBAR with logo linking to home -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="Dipro Saha logo" onerror="this.src='https://placehold.co/160x50/1E293B/2563EB?text=Dipro+Saha'">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="services.html">Services</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="hamburger" onclick="toggleMobileNav()">☰</div>
+</nav>
+
+<!-- mobile menu -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="close-nav" onclick="toggleMobileNav()">&times;</span>
+  <a href="index.html" onclick="toggleMobileNav()">Home</a>
+  <a href="about.html" class="active" onclick="toggleMobileNav()">About</a>
+  <a href="services.html" onclick="toggleMobileNav()">Services</a>
+  <a href="projects.html" onclick="toggleMobileNav()">Projects</a>
+  <a href="contact.html" onclick="toggleMobileNav()">Contact</a>
+</div>
+
+<!-- MAIN ABOUT PAGE CONTENT -->
+<div class="container">
+
+  <!-- 1️⃣ INTRO BANNER -->
+  <div class="banner" data-aos="fade-down" data-aos-duration="1200">
+    <h1>📄 About Me</h1>
+  </div>
+
+  <!-- 2️⃣ PERSONAL STORY SECTION -->
+  <div class="grid-2" style="margin: 4rem 0;">
+    <!-- Left: image with glow border (Dipro.jpg) -->
+    <div data-aos="fade-right" data-aos-delay="100">
+      <img src="Dipro.jpg" alt="Dipro Saha" class="glow-border" style="width:100%; border-radius: 30px;" onerror="this.src='https://placehold.co/600x600/1E293B/7C3AED?text=Dipro+Saha'">
+    </div>
+    <!-- Right: story text -->
+    <div data-aos="fade-left" data-aos-delay="200" style="display: flex; flex-direction: column; justify-content: center;">
+      <h2 style="font-size: 2.2rem; color: var(--primary);">CSE Student & Entrepreneur</h2>
+      <p style="font-size: 1.2rem; margin: 1.5rem 0; line-height: 1.6;">
+        I'm Dipro Saha, studying Computer Science at <strong>Gono Bishwabidyalay</strong>. 
+        My passion for web development led me to build <strong>Zero Point</strong>, an entrepreneurial venture. 
+        I'm deeply interested in AI & Cybersecurity, and I serve as <strong>Media Secretary at GBCDC</strong>. 
+        With over 18 projects delivered, I blend design thinking with robust code to create meaningful digital experiences.
+      </p>
+      <div>
+        <a href="projects.html" class="btn">View projects</a>
+        <a href="contact.html" class="btn btn-outline">Contact me</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3️⃣ SKILLS BREAKDOWN (animated progress bars) -->
+  <h2 data-aos="fade-up" style="margin: 4rem 0 2rem;">📊 Technical strengths</h2>
+  <div class="skills-container" id="skills-section" style="background: #1E293B80; padding: 2rem; border-radius: 40px;" data-aos="zoom-in-up">
+    <div class="progress-item">
+      <span style="display: flex; justify-content: space-between;"><strong>HTML / CSS</strong> <span class="skill-percent">95%</span></span>
+      <div class="progress-bar"><div class="progress-fill" data-width="95"></div></div>
+    </div>
+    <div class="progress-item">
+      <span><strong>JavaScript</strong> <span class="skill-percent">85%</span></span>
+      <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+    </div>
+    <div class="progress-item">
+      <span><strong>C / C++</strong> <span class="skill-percent">80%</span></span>
+      <div class="progress-bar"><div class="progress-fill" data-width="80"></div></div>
+    </div>
+    <div class="progress-item">
+      <span><strong>Java</strong> <span class="skill-percent">75%</span></span>
+      <div class="progress-bar"><div class="progress-fill" data-width="75"></div></div>
+    </div>
+    <div class="progress-item">
+      <span><strong>MS Office</strong> <span class="skill-percent">90%</span></span>
+      <div class="progress-bar"><div class="progress-fill" data-width="90"></div></div>
+    </div>
+  </div>
+
+  <!-- 4️⃣ TIMELINE SECTION -->
+  <h2 data-aos="fade-up" style="margin: 5rem 0 2rem;">📅 My journey</h2>
+  <div class="timeline">
+    <div class="timeline-item" data-aos="fade-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content"><h3>2021</h3> <p>Started learning programming (C, then web dev) – built first static websites.</p></div>
+    </div>
+    <div class="timeline-item" data-aos="fade-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content"><h3>2022</h3> <p>Completed full web development bootcamp & launched my first freelance projects.</p></div>
+    </div>
+    <div class="timeline-item" data-aos="fade-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content"><h3>2023</h3> <p>Founded Zero Point · delivered 10+ client websites and web apps.</p></div>
+    </div>
+    <div class="timeline-item" data-aos="fade-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content"><h3>2024</h3> <p>Appointed Media Secretary at GBCDC · started exploring AI & Cybersecurity.</p></div>
+    </div>
+    <div class="timeline-item" data-aos="fade-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content"><h3>Present</h3> <p>18+ projects delivered, continuously learning and building.</p></div>
+    </div>
+  </div>
+
+  <!-- 5️⃣ EXTRA STATS -->
+  <div style="display: flex; justify-content: space-around; gap: 2rem; flex-wrap: wrap; margin: 4rem 0;" data-aos="flip-up">
+    <div class="stat-item"><span class="stat-number">18+</span><br>Projects</div>
+    <div class="stat-item"><span class="stat-number">12+</span><br>Happy clients</div>
+    <div class="stat-item"><span class="stat-number">3+</span><br>Years coding</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Dipro Saha</h4>
+      <p style="color:#b0c4de;">Web designer & developer. CSE student, entrepreneur, and tech enthusiast.</p>
+      <div class="social-links-footer">
+        <a href="https://github.com/dipro619"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/dipro-saha-44b152384?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.facebook.com/share/1E2HbmSMdX/"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/dipro2646?igsh=dXJsMnIxaTlzNzhk"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About me</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">Web Development</a></li>
+        <li><a href="services.html">UI/UX Design</a></li>
+        <li><a href="services.html">Branding</a></li>
+        <li><a href="services.html">MS Office tasks</a></li>
+        <li><a href="services.html">AI integration</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><i class="fas fa-phone" style="margin-right:10px;"></i> +880 1821 6469 83</li>
+        <li><i class="fas fa-envelope" style="margin-right:10px;"></i> diprosaha3@gmail.com</li>
+        <li><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i> Manikganj, Bangladesh</li>
+        <li style="margin-top:1rem;"><a href="https://wa.me/8801821646983" style="color:#25D366;"><i class="fab fa-whatsapp"></i> WhatsApp direct</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Dipro Saha. All rights reserved. | Designed with ❤️</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true, offset: 100 });
+
+  // loader
+  window.addEventListener('load', ()=>{
+    document.getElementById('loader').style.opacity = 0;
+    setTimeout(()=>{ document.getElementById('loader').style.display = 'none'; }, 600);
+  });
+
+  // mobile nav toggle with animation
+  window.toggleMobileNav = () => {
+    const mobileNav = document.getElementById('mobileNav');
+    const hamburger = document.querySelector('.hamburger');
+    mobileNav.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  };
+
+  // scroll progress bar
+  window.addEventListener('scroll', ()=>{
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+  });
+
+  // progress bars animation when skills section appears
+  const skillsSection = document.getElementById('skills-section');
+  const progressBars = document.querySelectorAll('.progress-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        progressBars.forEach(bar => {
+          const width = bar.getAttribute('data-width');
+          bar.style.width = width + '%';
+        });
+        observer.unobserve(skillsSection);
+      }
+    });
+  }, { threshold: 0.5 });
+  if (skillsSection) observer.observe(skillsSection);
+
+  // Set active page in navigation based on current URL
+  function setActivePage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'about.html';
+    const desktopLinks = document.querySelectorAll('.nav-links a');
+    const mobileLinks = document.querySelectorAll('.mobile-nav a');
+    
+    desktopLinks.forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+    
+    mobileLinks.forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  setActivePage();
+</script>
+</body>
+</html>

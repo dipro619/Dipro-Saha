@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dipro Saha · Contact (balanced heights)</title>
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Boxicons for footer social -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #0F172A;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+    :root {
+      --primary: #2563EB;
+      --secondary: #7C3AED;
+      --bg-dark: #0F172A;
+      --card-bg: #1E293B;
+    }
+    /* animated background */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 40%, #2563eb15, transparent 40%),
+                  radial-gradient(circle at 80% 70%, #7c3aed15, transparent 40%);
+      z-index: -2;
+      pointer-events: none;
+    }
+    .floating-particles {
+      position: fixed;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="2" fill="%232563EB" opacity="0.2"/><circle cx="40" cy="30" r="3" fill="%237C3AED" opacity="0.2"/><circle cx="50" cy="55" r="2" fill="%232563EB" opacity="0.2"/></svg>');
+      opacity: 0.5;
+      z-index: -1;
+      animation: float 30s linear infinite;
+    }
+    @keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-100px); } }
+
+    /* navbar */
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%; background: #0f172ae0; backdrop-filter: blur(12px);
+      border-bottom: 1px solid #2563eb30; position: sticky; top: 0; z-index: 999;
+    }
+    .logo img {
+      height: 42px; width: auto; border-radius: 8px;
+      cursor: pointer;
+    }
+    .nav-links {
+      display: flex; gap: 2.2rem; align-items: center;
+    }
+    .nav-links a {
+      color: #e2e8f0; text-decoration: none; font-weight: 500;
+      transition: 0.2s;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hamburger.active {
+      transform: rotate(90deg);
+    }
+
+    /* mobile nav */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background: #1E293B;
+      z-index: 1000;
+      padding: 4rem 2rem;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -10px 0 30px #00000080;
+      backdrop-filter: blur(10px);
+      border-left: 1px solid #2563eb30;
+    }
+    .mobile-nav.active {
+      right: 0;
+    }
+    .mobile-nav a {
+      display: block;
+      margin: 2rem 0;
+      color: white;
+      text-decoration: none;
+      font-size: 1.4rem;
+      transition: 0.2s;
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid transparent;
+    }
+    .mobile-nav a.active {
+      border-left-color: var(--primary);
+      color: var(--primary);
+      padding-left: 1.5rem;
+    }
+    .mobile-nav a:hover {
+      color: var(--primary);
+      padding-left: 1.5rem;
+    }
+    .close-nav {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .close-nav:hover {
+      transform: rotate(90deg);
+      color: var(--primary);
+    }
+
+    /* container */
+    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 5%; }
+
+    /* section title */
+    .section-title {
+      font-size: 4rem;
+      text-align: center;
+      margin: 2rem 0 3rem;
+      background: linear-gradient(145deg, var(--primary), cyan);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* contact layout */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      margin: 3rem 0;
+      align-items: stretch;  /* key: both columns stretch to same height */
+    }
+
+    /* contact info card – full height flex column */
+    .info-card {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: 32px;
+      border: 1px solid #ffffff15;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;          /* fill grid column height */
+    }
+    .info-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 30px #2563eb30;
+      transform: translateY(-6px);
+    }
+
+    /* heading inside info card */
+    .info-card h2 {
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    /* info items container – takes available space */
+    .info-items {
+      flex: 1;              /* pushes social links down, helps equal height */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+    .info-item i {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(145deg, #2563eb20, #7c3aed20);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    /* social links at bottom */
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .social-links a {
+      color: white;
+      background: #2d3a4f;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      background: var(--primary);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* form – same height as info card */
+    .contact__form {
+      background: var(--card-bg);
+      padding: 2.8rem;
+      border-radius: 40px;
+      border: 1px solid #ffffff15;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      height: 100%;          /* fill grid column height */
+    }
+
+    .contact__input {
+      width: 100%;
+      padding: 1.2rem 1.8rem;
+      background: #0F172A;
+      border: 2px solid #2d3a4f;
+      border-radius: 40px;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+    .contact__input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px #2563eb30;
+    }
+    textarea.contact__input {
+      min-height: 160px;
+      resize: vertical;
+      flex: 1;               /* let textarea grow, but form uses gap anyway */
+    }
+    .contact__button {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem 2rem;
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px #2563eb50;
+      width: fit-content;     /* button not full width unless desired */
+      align-self: flex-start; /* keep left aligned */
+    }
+    .contact__button:hover {
+      background: var(--secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px #7c3aed70;
+    }
+
+    /* map placeholder */
+    .map-container {
+      margin: 4rem 0 2rem;
+      border-radius: 40px;
+      overflow: hidden;
+      border: 2px solid #2563eb30;
+      height: 280px;
+      background: #1E293B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    /* footer */
+    .footer {
+      background-color: #0F172A;
+      text-align: center;
+      font-weight: 500;
+      padding: 2.5rem 0;
+      border-top: 1px solid #2563eb30;
+      margin-top: 4rem;
+    }
+    .footer__title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-family: 'Poppins', sans-serif;
+    }
+    .footer__social {
+      margin-bottom: 1.5rem;
+    }
+    .footer__icon {
+      font-size: 1.8rem;
+      color: #e2e8f0;
+      margin: 0 1rem;
+      transition: 0.3s;
+      display: inline-block;
+    }
+    .footer__icon:hover {
+      color: var(--primary);
+      transform: translateY(-5px) scale(1.1);
+    }
+    .footer__copy {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* floating whatsapp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 20px #25D36650;
+      z-index: 9999;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #20ba5a;
+      box-shadow: 0 15px 30px #25D36680;
+    }
+
+    /* responsive */
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .section-title { font-size: 3rem; }
+      .contact__form { padding: 2rem; }
+      .whatsapp-float { width: 50px; height: 50px; font-size: 1.8rem; bottom: 20px; right: 20px; }
+      .info-card { padding: 1.8rem; }
+    }
+
+    /* loader & progress */
+    .loader { position: fixed; inset: 0; background: #0F172A; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s; }
+    .spinner { width: 60px; height: 60px; border: 5px solid #2563eb30; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s infinite; }
+    @keyframes spin { to{ transform: rotate(360deg); } }
+    #scrollProgress { position: fixed; top:0; left:0; width:0%; height: 4px; background: linear-gradient(90deg, var(--primary), cyan); z-index: 10000; }
+  </style>
+</head>
+<body>
+<div id="scrollProgress"></div>
+<div class="loader" id="loader"><div class="spinner"></div></div>
+<div class="animated-bg"></div>
+<div class="floating-particles"></div>
+
+<!-- FLOATING WHATSAPP ICON -->
+<a href="https://wa.me/8801821646983" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- NAVBAR with logo linking to home -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <img src="logo.png" alt="Dipro Saha logo" onerror="this.src='https://placehold.co/160x50/1E293B/2563EB?text=Dipro+Saha'">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <div class="hamburger" onclick="toggleMobileNav()">☰</div>
+</nav>
+
+<!-- mobile menu -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="close-nav" onclick="toggleMobileNav()">&times;</span>
+  <a href="index.html" onclick="toggleMobileNav()">Home</a>
+  <a href="about.html" onclick="toggleMobileNav()">About</a>
+  <a href="services.html" onclick="toggleMobileNav()">Services</a>
+  <a href="projects.html" onclick="toggleMobileNav()">Projects</a>
+  <a href="contact.html" class="active" onclick="toggleMobileNav()">Contact</a>
+</div>
+
+<!-- MAIN CONTACT PAGE CONTENT -->
+<div class="container">
+  <!-- Section Title -->
+  <h2 class="section-title" data-aos="fade-down">Contact</h2>
+
+  <!-- Two Column Layout with equal heights -->
+  <div class="contact-grid">
+    <!-- LEFT: Contact Info (now with flexible items) -->
+    <div data-aos="fade-right">
+      <div class="info-card">
+        <h2>📬 Get in touch</h2>
+        <!-- info-items wrapper flexes to fill space, making height consistent -->
+        <div class="info-items">
+          <div class="info-item">
+            <i class="fas fa-phone-alt"></i>
+            <span>+880 1821646983</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <span>diprosaha3@gmail.com</span>
+          </div>
+          <div class="info-item">
+            <i class="fab fa-linkedin"></i>
+            <span>Dipro Saha</span>
+          </div>
+          <div class="info-item">
+            <i class="fab fa-github"></i>
+            <span>Dipro Saha</span>
+          </div>
+          <div class="info-item">
+            <i class="fab fa-facebook"></i>
+            <span>Dipro Saha</span>
+          </div>
+        </div>
+        <!-- social links always at bottom -->
+        <div class="social-links">
+          <a href="https://github.com/dipro619" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dipro-saha-44b152384?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/share/1E2HbmSMdX/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/dipro2646?igsh=dXJsMnIxaTlzNzhk" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Contact Form (will match height exactly) -->
+    <div data-aos="fade-left">
+      <form action="https://api.web3forms.com/submit" method="POST" class="contact__form">
+        <input type="hidden" name="access_key" value="3118e93b-ebaa-4c42-9b4e-b240fdb7870c">
+        <input type="text" name="name" placeholder="Your Name" class="contact__input" required>
+        <input type="email" name="email" placeholder="Your E-mail" class="contact__input" required>
+        <textarea name="message" placeholder="Write a Message..." class="contact__input" required></textarea>
+        <button type="submit" class="contact__button button">Submit →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Map placeholder (optional) -->
+  
+</div>
+
+<!--===== FOOTER =====-->
+<footer class="footer">
+  <p class="footer__title">Dipro Saha</p>
+  <div class="footer__social">
+    <a href="https://www.facebook.com/share/1E2HbmSMdX/" class="footer__icon" target="_blank"><i class='bx bxl-facebook'></i></a>
+    <a href="https://www.instagram.com/dipro2646?igsh=dXJsMnIxaTlzNzhk" class="footer__icon" target="_blank"><i class='bx bxl-instagram'></i></a>
+    <a href="https://x.com/dipro_saha2835" class="footer__icon" target="_blank"><i class='bx bxl-twitter'></i></a>
+  </div>
+  <p class="footer__copy">&#169; Dipro Saha. All rights reserved</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true, offset: 100 });
+
+  window.addEventListener('load', ()=>{
+    document.getElementById('loader').style.opacity = 0;
+    setTimeout(()=>{ document.getElementById('loader').style.display = 'none'; }, 600);
+  });
+
+  window.toggleMobileNav = () => {
+    document.getElementById('mobileNav').classList.toggle('active');
+    document.querySelector('.hamburger').classList.toggle('active');
+  };
+
+  window.addEventListener('scroll', ()=>{
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+  });
+
+  function setActivePage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'contact.html';
+    document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('href') === currentPage) link.classList.add('active');
+    });
+  }
+  setActivePage();
+</script>
+</body>
+</html>
