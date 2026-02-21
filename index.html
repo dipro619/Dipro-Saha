@@ -19,9 +19,11 @@
     body {
       background-color: #0F172A;
       color: #e2e8f0;
-      overflow-x: hidden;
+      overflow-x: hidden; /* CRITICAL: prevents horizontal scroll */
       scroll-behavior: smooth;
       position: relative;
+      width: 100%;
+      max-width: 100%;
     }
     h1, h2, h3, h4 {
       font-family: 'Poppins', sans-serif;
@@ -35,7 +37,7 @@
       --glow-cyan: linear-gradient(145deg, #2563EB80, #7C3AED80);
       --card-bg: #1E293B;
     }
-    /* animated background */
+    /* animated background - ensure they don't overflow */
     .animated-bg {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -59,6 +61,7 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 5%; background: #0f172ae0; backdrop-filter: blur(12px);
       border-bottom: 1px solid #2563eb30; position: sticky; top: 0; z-index: 999;
+      width: 100%;
     }
     .logo img {
       height: 42px; width: auto; border-radius: 8px;
@@ -151,8 +154,14 @@
       color: var(--primary);
     }
 
-    /* container */
-    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 5%; }
+    /* container - ensure no overflow */
+    .container { 
+      max-width: 1280px; 
+      margin: 0 auto; 
+      padding: 2rem 5%; 
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     /* buttons */
     .btn {
@@ -174,31 +183,31 @@
       transition: all 0.3s cubic-bezier(0.2,0.9,0.3,1.2);
       display: flex;
       flex-direction: column;
-      align-items: center;          /* center everything */
+      align-items: center;
       text-align: center;
       height: 100%;
+      width: 100%; /* ensure card fits inside grid */
     }
     .skill-card:hover {
       transform: translateY(-12px) scale(1.02); border-color: var(--primary); box-shadow: 0 20px 30px -10px #2563eb80;
     }
-    /* skill icon fixed size, consistent spacing */
     .skill-card i {
-      margin-bottom: 1.5rem;        /* distance icon → title */
-      font-size: 2.8rem;            /* bigger & uniform */
+      margin-bottom: 1.5rem;
+      font-size: 2.8rem;
       color: var(--primary);
       transition: 0.2s;
       display: inline-block;
     }
     .skill-card h3 {
-      margin-bottom: 1rem;          /* title → description */
+      margin-bottom: 1rem;
       font-size: 1.7rem;
       letter-spacing: -0.5px;
     }
     .skill-card p {
-      margin-bottom: 0;             /* no extra margin after p, keeps bottom padding symmetric */
+      margin-bottom: 0;
       line-height: 1.6;
       color: #b0c4de;
-      max-width: 280px;             /* prevent too wide lines */
+      max-width: 280px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -213,17 +222,17 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      width: 100%;
     }
     .project-card:hover {
       transform: translateY(-12px) scale(1.02); border-color: var(--primary); box-shadow: 0 20px 30px -10px #2563eb80;
     }
-    /* image container to ensure consistent image area */
     .project-img {
       width: 100%;
       aspect-ratio: 16 / 10;
       border-radius: 20px;
-      background: #2d3b4f;          /* placeholder bg if image missing */
-      margin-bottom: 1.6rem;        /* space after image */
+      background: #2d3b4f;
+      margin-bottom: 1.6rem;
       overflow: hidden;
     }
     .project-img img {
@@ -235,14 +244,14 @@
     }
     .project-card h3 {
       font-size: 1.7rem;
-      margin-bottom: 0.6rem;        /* title → description */
+      margin-bottom: 0.6rem;
       padding: 0 0.2rem;
     }
     .project-card p {
       color: #b0c4de;
       line-height: 1.6;
-      margin-bottom: 1.5rem;        /* description → link */
-      flex-grow: 1;                 /* push link down, all cards same height */
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
     }
     .project-link {
       color: var(--primary);
@@ -266,14 +275,29 @@
     }
 
     /* grid */
-    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; width: 100%; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; width: 100%; }
 
     /* hero */
-    .hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem; min-height: 80vh; }
+    .hero { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      align-items: center; 
+      gap: 3rem; 
+      min-height: 80vh;
+      width: 100%;
+    }
     .hero h1 { font-size: 3.2rem; line-height: 1.2; }
     .typed-text { font-size: 2rem; color: var(--primary); font-weight: 600; min-height: 4rem; }
-    .hero-right img { width: 100%; max-width: 400px; border-radius: 30px; border: 3px solid var(--primary); box-shadow: 0 0 30px #2563eb; animation: floatGlow 6s infinite; }
+    .hero-right img { 
+      width: 100%; 
+      max-width: 400px; 
+      border-radius: 30px; 
+      border: 3px solid var(--primary); 
+      box-shadow: 0 0 30px #2563eb; 
+      animation: floatGlow 6s infinite;
+      display: block; /* removes extra space */
+    }
     @keyframes floatGlow { 0%{ transform: translateY(0); } 50%{ transform: translateY(-10px); box-shadow: 0 0 40px #7c3aed; } }
 
     /* stats */
@@ -286,6 +310,7 @@
       border-top: 1px solid #2563eb30;
       padding: 3rem 5% 2rem;
       margin-top: 4rem;
+      width: 100%;
     }
     .footer-grid {
       display: grid;
@@ -293,6 +318,7 @@
       gap: 2rem;
       max-width: 1280px;
       margin: 0 auto;
+      width: 100%;
     }
     .footer-col h4 {
       color: white;
@@ -368,17 +394,16 @@
       box-shadow: 0 15px 30px #25D36680;
     }
 
-    /* --- FIX: BUTTON SPACING ON MOBILE (main issue) --- */
+    /* BUTTON SPACING (mobile fix) */
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.2rem 1.5rem;          /* horizontal & vertical gap */
+      gap: 1.2rem 1.5rem;
       margin: 2rem 0;
       align-items: center;
     }
-    /* override default .btn margin-right to avoid conflict */
     .hero-buttons .btn {
-      margin-right: 0;              /* remove old margin, rely on gap */
+      margin-right: 0;
     }
 
     /* responsive */
@@ -392,7 +417,6 @@
       .hero { grid-template-columns: 1fr; text-align: center; }
       .grid-3, .grid-4, .footer-grid { grid-template-columns: 1fr; }
       .whatsapp-float { width: 50px; height: 50px; font-size: 1.8rem; bottom: 20px; right: 20px; }
-      /* center hero buttons on mobile with consistent spacing */
       .hero-buttons {
         justify-content: center;
       }
@@ -444,7 +468,7 @@
 <!-- MAIN HOME PAGE CONTENT -->
 <div class="container" id="home-page">
 
-  <!-- HERO SECTION (buttons spacing fixed) -->
+  <!-- HERO SECTION (buttons spacing fixed + no overflow) -->
   <div class="hero">
     <div data-aos="fade-right">
       <h1>Hi, I'm Dipro Saha<br>Web Designer & Developer</h1>
@@ -453,7 +477,7 @@
         I craft responsive, user‑friendly websites with modern design. 
         CSE student, entrepreneur, and tech enthusiast.
       </p>
-      <!-- BUTTON CONTAINER WITH FLEX GAP (fixed spacing issue) -->
+      <!-- BUTTON CONTAINER WITH FLEX GAP -->
       <div class="hero-buttons">
         <a href="projects.html" class="btn">Explore My Work</a>
         <a href="contact.html" class="btn btn-outline">Contact Me</a>
