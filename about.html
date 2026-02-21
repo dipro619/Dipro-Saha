@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Dipro Saha · About</title>
   <!-- Fonts & icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,9 @@
     body {
       background-color: #0F172A;
       color: #e2e8f0;
-      overflow-x: hidden;
+      overflow-x: hidden; /* ← kills horizontal scroll */
+      width: 100%;
+      position: relative;
       scroll-behavior: smooth;
     }
     h1, h2, h3, h4 {
@@ -58,6 +60,7 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 5%; background: #0f172ae0; backdrop-filter: blur(12px);
       border-bottom: 1px solid #2563eb30; position: sticky; top: 0; z-index: 999;
+      width: 100%;
     }
     .logo img {
       height: 42px; width: auto; border-radius: 8px;
@@ -151,13 +154,20 @@
     }
 
     /* container */
-    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 5%; }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 5%;
+      width: 100%;
+      overflow-x: hidden; /* extra safety */
+    }
 
     /* buttons */
     .btn {
       display: inline-block; background: var(--primary); color: white; padding: 0.8rem 2rem;
       border-radius: 40px; text-decoration: none; font-weight: 600; margin-right: 1rem;
       transition: 0.2s; border: none; cursor: pointer; box-shadow: 0 4px 15px #2563eb50;
+      white-space: nowrap; /* keep text in one line */
     }
     .btn-outline { background: transparent; border: 2px solid var(--primary); }
     .btn:hover { transform: translateY(-4px); background: var(--secondary); box-shadow: 0 10px 25px #7c3aed70; }
@@ -178,6 +188,8 @@
       font-size: 5rem;
       text-shadow: 0 0 30px cyan;
       letter-spacing: 4px;
+      word-break: break-word;
+      text-align: center;
     }
     .glow-border {
       border: 4px solid transparent;
@@ -269,6 +281,8 @@
       border-top: 1px solid #2563eb30;
       padding: 3rem 5% 2rem;
       margin-top: 4rem;
+      width: 100%;
+      overflow-x: hidden;
     }
     .footer-grid {
       display: grid;
@@ -301,6 +315,7 @@
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
     .social-links-footer a {
       color: white;
@@ -326,7 +341,7 @@
       color: #94a3b8;
     }
 
-    /* responsive */
+    /* FIX: button spacing on mobile and extra right space */
     @media (max-width: 1024px) {
       .grid-2 { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
@@ -337,6 +352,43 @@
       .banner h1 { font-size: 3rem; }
       .footer-grid { grid-template-columns: 1fr; }
       .whatsapp-float { width: 50px; height: 50px; font-size: 1.8rem; bottom: 20px; right: 20px; }
+
+      /* ★ FIX 1: buttons in hero section get proper gap & wrap */
+      .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;              /* creates space even when stacked */
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .hero-buttons .btn {
+        margin-right: 0;         /* remove old margin, rely on gap */
+        white-space: normal;     /* allow text wrapping if needed (but buttons stay inline) */
+        text-align: center;
+        flex: 0 1 auto;          /* don't stretch */
+      }
+
+      /* FIX 2: kill any potential overflow from grid/image */
+      .grid-2 {
+        width: 100%;
+        overflow: hidden;
+      }
+      img {
+        max-width: 100%;
+      }
+    }
+
+    /* tiny phones (<=480px) - stack buttons vertically with gap */
+    @media (max-width: 480px) {
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;    /* make buttons full width? but you might keep inline */
+        width: 100%;
+      }
+      .hero-buttons .btn {
+        width: 100%;             /* full width for easier tap, but you can keep as preferred */
+        text-align: center;
+      }
     }
 
     /* loader */
@@ -390,13 +442,13 @@
     <h1>📄 About Me</h1>
   </div>
 
-  <!-- 2️⃣ PERSONAL STORY SECTION -->
+  <!-- 2️⃣ PERSONAL STORY SECTION (fixed button spacing & no right gap) -->
   <div class="grid-2" style="margin: 4rem 0;">
     <!-- Left: image with glow border (Dipro.jpg) -->
     <div data-aos="fade-right" data-aos-delay="100">
       <img src="Dipro.jpg" alt="Dipro Saha" class="glow-border" style="width:100%; border-radius: 30px;" onerror="this.src='https://placehold.co/600x600/1E293B/7C3AED?text=Dipro+Saha'">
     </div>
-    <!-- Right: story text -->
+    <!-- Right: story text + button group with proper gap -->
     <div data-aos="fade-left" data-aos-delay="200" style="display: flex; flex-direction: column; justify-content: center;">
       <h2 style="font-size: 2.2rem; color: var(--primary);">CSE Student & Entrepreneur</h2>
       <p style="font-size: 1.2rem; margin: 1.5rem 0; line-height: 1.6;">
@@ -405,7 +457,8 @@
         I'm deeply interested in AI & Cybersecurity, and I serve as <strong>Media Secretary at GBCDC</strong>. 
         With over 18 projects delivered, I blend design thinking with robust code to create meaningful digital experiences.
       </p>
-      <div>
+      <!-- buttons wrapped in div with class hero-buttons to control gap on mobile -->
+      <div class="hero-buttons">
         <a href="projects.html" class="btn">View projects</a>
         <a href="contact.html" class="btn btn-outline">Contact me</a>
       </div>
