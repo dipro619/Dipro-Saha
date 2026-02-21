@@ -368,6 +368,19 @@
       box-shadow: 0 15px 30px #25D36680;
     }
 
+    /* --- FIX: BUTTON SPACING ON MOBILE (main issue) --- */
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 1.5rem;          /* horizontal & vertical gap */
+      margin: 2rem 0;
+      align-items: center;
+    }
+    /* override default .btn margin-right to avoid conflict */
+    .hero-buttons .btn {
+      margin-right: 0;              /* remove old margin, rely on gap */
+    }
+
     /* responsive */
     @media (max-width: 1024px) {
       .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); }
@@ -379,6 +392,10 @@
       .hero { grid-template-columns: 1fr; text-align: center; }
       .grid-3, .grid-4, .footer-grid { grid-template-columns: 1fr; }
       .whatsapp-float { width: 50px; height: 50px; font-size: 1.8rem; bottom: 20px; right: 20px; }
+      /* center hero buttons on mobile with consistent spacing */
+      .hero-buttons {
+        justify-content: center;
+      }
     }
 
     /* loader & progress */
@@ -427,7 +444,7 @@
 <!-- MAIN HOME PAGE CONTENT -->
 <div class="container" id="home-page">
 
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION (buttons spacing fixed) -->
   <div class="hero">
     <div data-aos="fade-right">
       <h1>Hi, I'm Dipro Saha<br>Web Designer & Developer</h1>
@@ -436,7 +453,8 @@
         I craft responsive, user‑friendly websites with modern design. 
         CSE student, entrepreneur, and tech enthusiast.
       </p>
-      <div style="margin: 2rem 0;">
+      <!-- BUTTON CONTAINER WITH FLEX GAP (fixed spacing issue) -->
+      <div class="hero-buttons">
         <a href="projects.html" class="btn">Explore My Work</a>
         <a href="contact.html" class="btn btn-outline">Contact Me</a>
       </div>
