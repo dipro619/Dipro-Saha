@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dipro Saha · Contact (balanced heights)</title>
+  <title>Dipro Saha · Contact (balanced heights, no overflow)</title>
   <!-- Fonts & icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -21,8 +21,10 @@
     body {
       background-color: #0F172A;
       color: #e2e8f0;
-      overflow-x: hidden;
+      overflow-x: hidden; /* 🔥 CRITICAL: prevents horizontal scroll */
       scroll-behavior: smooth;
+      width: 100%;
+      max-width: 100%;
     }
     h1, h2, h3, h4 {
       font-family: 'Poppins', sans-serif;
@@ -58,6 +60,7 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 5%; background: #0f172ae0; backdrop-filter: blur(12px);
       border-bottom: 1px solid #2563eb30; position: sticky; top: 0; z-index: 999;
+      width: 100%;
     }
     .logo img {
       height: 42px; width: auto; border-radius: 8px;
@@ -150,8 +153,14 @@
       color: var(--primary);
     }
 
-    /* container */
-    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 5%; }
+    /* container - ensures no overflow */
+    .container { 
+      max-width: 1280px; 
+      margin: 0 auto; 
+      padding: 2rem 5%; 
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     /* section title */
     .section-title {
@@ -171,6 +180,7 @@
       gap: 3rem;
       margin: 3rem 0;
       align-items: stretch;  /* key: both columns stretch to same height */
+      width: 100%;
     }
 
     /* contact info card – full height flex column */
@@ -327,6 +337,7 @@
       padding: 2.5rem 0;
       border-top: 1px solid #2563eb30;
       margin-top: 4rem;
+      width: 100%;
     }
     .footer__title {
       font-size: 1.8rem;
@@ -491,7 +502,7 @@
   </div>
 
   <!-- Map placeholder (optional) -->
-  
+  <!-- <div class="map-container">📍 Map integration could be placed here</div> -->
 </div>
 
 <!--===== FOOTER =====-->
